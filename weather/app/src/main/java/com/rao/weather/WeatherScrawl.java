@@ -52,6 +52,8 @@ public class WeatherScrawl {
             for (int i=0; i<todayObjMap.size();i++) {
                 if (!todayObjMap.containsKey(String.valueOf(i)))
                     continue;
+                if (i>23)
+                    break;
                 Map<PyObject, PyObject> curMap = todayObjMap.get(String.valueOf(i)).asMap();
                 HashMap<String,String> map = new HashMap<String,String>();
                 if (curMap.containsKey("degree"))

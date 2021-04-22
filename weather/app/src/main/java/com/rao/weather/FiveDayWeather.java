@@ -216,11 +216,12 @@ public class FiveDayWeather extends AbstractItem<FiveDayWeather, FiveDayWeather.
   }
 
   protected FiveDayWeather(Parcel in) {
-//    this.id = in.readLong();
+    in.readList(this.hourList, List.class.getClassLoader());
 //    this.dt = in.readInt();
 //    this.temp = in.readDouble();
-//    this.minTemp = in.readDouble();
-//    this.maxTemp = in.readDouble();
+    this.minTemp = in.readString();
+    this.maxTemp = in.readString();
+    this.dayWeather = in.readString();
 //    this.weatherId = in.readInt();
 //    this.timestampStart = in.readLong();
 //    this.timestampEnd = in.readLong();
@@ -235,10 +236,10 @@ public class FiveDayWeather extends AbstractItem<FiveDayWeather, FiveDayWeather.
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-//    dest.writeLong(this.id);
-//    dest.writeInt(this.dt);
-//    dest.writeDouble(this.temp);
-//    dest.writeDouble(this.minTemp);
+    dest.writeList(this.hourList);
+    dest.writeString(this.minTemp);
+    dest.writeString(this.maxTemp);
+    dest.writeString(this.dayWeather);
 //    dest.writeDouble(this.maxTemp);
 //    dest.writeInt(this.weatherId);
 //    dest.writeLong(this.timestampStart);
