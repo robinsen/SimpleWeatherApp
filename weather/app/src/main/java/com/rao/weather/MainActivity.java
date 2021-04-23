@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
@@ -52,9 +53,49 @@ public class MainActivity extends AppCompatActivity {
     private void showTodayWeather() {
         binding.contentMainLayout.tempTextView.setText(ws.getDegree());
         binding.contentMainLayout.descriptionTextView.setText(ws.getWeather());
+        binding.contentMainLayout.windTextView.setText(ws.getWindPower());
+        binding.contentMainLayout.humidityTextView.setText(ws.getPm());
+        binding.contentMainLayout.provinceTextView.setText(ws.getProvince());
+        binding.contentMainLayout.cityTextView.setText(ws.getCity());
     }
 
     private void  initValues() {
+        binding.swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onRefresh() {
+//                cityInfo = prefser.get(Constants.CITY_INFO, CityInfo.class, null);
+//                if (cityInfo != null) {
+//                    long lastStored = prefser.get(Constants.LAST_STORED_CURRENT, Long.class, 0L);
+//                    if (AppUtil.isTimePass(lastStored)) {
+//                        requestWeather(cityInfo.getName(), false);
+//                    } else {
+//                        binding.swipeContainer.setRefreshing(false);
+//                    }
+//                } else {
+                initWeatherData();
+                binding.swipeContainer.setRefreshing(false);
+//                }
+            }
+
+        });
+        binding.bar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                showAboutFragment();
+            }
+        });
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
+        binding.nextDaysButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //AppUtil.showFragment(new MultipleDaysFragment(), getSupportFragmentManager(), true);
+            }
+        });
         typeface = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
         binding.contentMainLayout.todayMaterialCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +190,12 @@ public class MainActivity extends AppCompatActivity {
         binding.contentMainLayout.windTextView.setFactory(new TextViewFactory(MainActivity.this, R.style.WindSpeedTextView, false, typeface));
         binding.contentMainLayout.windTextView.setInAnimation(MainActivity.this, R.anim.slide_in_bottom);
         binding.contentMainLayout.windTextView.setOutAnimation(MainActivity.this, R.anim.slide_out_top);
+        binding.contentMainLayout.provinceTextView.setFactory(new TextViewFactory(MainActivity.this, R.style.WindSpeedTextView, false, typeface));
+        binding.contentMainLayout.provinceTextView.setInAnimation(MainActivity.this, R.anim.slide_in_bottom);
+        binding.contentMainLayout.provinceTextView.setOutAnimation(MainActivity.this, R.anim.slide_out_top);
+        binding.contentMainLayout.cityTextView.setFactory(new TextViewFactory(MainActivity.this, R.style.WindSpeedTextView, false, typeface));
+        binding.contentMainLayout.cityTextView.setInAnimation(MainActivity.this, R.anim.slide_in_bottom);
+        binding.contentMainLayout.cityTextView.setOutAnimation(MainActivity.this, R.anim.slide_out_top);
     }
 
     @Override
@@ -180,8 +227,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void initWeatherData() {
-        ws = new WeatherScrawl();
+    public void initWeatherData() {
+        if (ws == null)
+            ws = new WeatherScrawl();
         if(ws.scrawlWeather(Python.getInstance())) {
             showTodayWeather();
             initFiveDayWeather();

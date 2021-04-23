@@ -76,6 +76,7 @@ public class WeatherScrawl {
             HashMap<String,String> map = hourList.get(0);
             this.degree = map.get("degree");
             this.weather = map.get("weather_short");
+            this.windPower = map.get("wind_power");
         }
 
         //今天天气质量
@@ -90,16 +91,16 @@ public class WeatherScrawl {
         if (tempMap.containsKey("air")) {
             PyObject airObj = tempMap.get("air");
             Map<PyObject, PyObject> airObjMap = airObj.asMap();
-            if (airObj.containsKey("pm2.5"))
-                pm = airObj.get("pm2.5").toString();
-            if (airObj.containsKey("pm10"))
-                pm10 = airObj.get("pm10").toString();
-            if (airObj.containsKey("aqi"))
-                aqi = airObj.get("aqi").toString();
-            if (airObj.containsKey("aqi_level"))
-                aqilevel = airObj.get("aqi_level").toString();
-            if (airObj.containsKey("aqi_name"))
-                aqiname = airObj.get("aqi_name").toString();
+            if (airObjMap.containsKey("pm2.5"))
+                pm = airObjMap.get("pm2.5").toString();
+            if (airObjMap.containsKey("pm10"))
+                pm10 = airObjMap.get("pm10").toString();
+            if (airObjMap.containsKey("aqi"))
+                aqi = airObjMap.get("aqi").toString();
+            if (airObjMap.containsKey("aqi_level"))
+                aqilevel = airObjMap.get("aqi_level").toString();
+            if (airObjMap.containsKey("aqi_name"))
+                aqiname = airObjMap.get("aqi_name").toString();
         }
 
         //未来7天
@@ -136,6 +137,7 @@ public class WeatherScrawl {
     public String getWeather() { return this.weather; }
     public String getCity() { return this.city; }
     public String getProvince() { return this.province; }
+    public String getPm() { return this.pm; }
 
     public List<HashMap<String,String>> getSevenDayWeather() { return this.dataList; }
     public List<HashMap<String,String>> getTodayHourWeather() { return this.hourList; }
