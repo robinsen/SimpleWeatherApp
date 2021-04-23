@@ -58,21 +58,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_large"
                     android:orientation="horizontal"
+                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/spacing_large">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_weight="1"
                             android:padding="@dimen/spacing_middle">
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -80,7 +80,67 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="@string/humidity_label"
+                                android:text="@string/province_name"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="@dimen/spacing_medium"
+                                android:layout_height="0dp" />
+
+                            <TextSwitcher
+                                android:id="@+id/province_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1"
+                            android:padding="@dimen/spacing_middle">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewInColoredCard"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/city_name"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="@dimen/spacing_medium"
+                                android:layout_height="0dp" />
+
+                            <TextSwitcher
+                                android:id="@+id/city_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1"
+                            android:padding="@dimen/spacing_middle">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewInColoredCard"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="PM2.5"
                                 android:textStyle="bold" />
 
                             <View
@@ -98,6 +158,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_weight="1"
                             android:padding="@dimen/spacing_middle">
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -119,8 +180,7 @@
                                 android:layout_gravity="center" />
                         </LinearLayout>
                     </LinearLayout>
-
-
+                </LinearLayout>
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/animation_view"
                         android:layout_width="0dp"
@@ -129,7 +189,6 @@
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true" />
 
-                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
